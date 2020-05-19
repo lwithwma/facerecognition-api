@@ -14,10 +14,12 @@ const knex = require('knex');
 const db =knex({
 	client: 'pg',
     connection: {
-    	host:'127.0.0.1',
+    	/*host:'127.0.0.1',
     	user:'postgres',
     	password:'lwith',
-    	database:'face-detector'
+    	database:'face-detector'*/
+    	connectionString:process.env.DATABASE,
+    	ssl:true
   }
 });
 
@@ -33,10 +35,11 @@ app.use(cors());
 //root request
 app.get('/',(req,res)=>{
 	//responding with all the users corrently present
-	db.select('*').from('users')
+	/*db.select('*').from('users')
 	.then(user =>{
 		res.json(user);
-	});
+	});*/
+	res.send("<h2>You are inside of a root server</h2>");
 })
 
 //for signing in user
@@ -146,6 +149,7 @@ app.put('/image',(req, res)=>{
 
 })
 
-app.listen(3000,()=>{
-	console.log('app is working properly !!');
+const port=process.env.PORT || 3000;
+app.listen(port,()=>{
+	console.log(`App is working properly on port ${port}`);
 })
