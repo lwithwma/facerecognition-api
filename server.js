@@ -18,7 +18,7 @@ const db =knex({
     	user:'postgres',
     	password:'lwith',
     	database:'face-detector'*/
-    	connectionString:process.env.DATABASE,
+    	connectionString:process.env.DATABASE_URL,
     	ssl:true
   }
 });
